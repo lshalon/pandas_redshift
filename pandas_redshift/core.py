@@ -157,7 +157,7 @@ def upload_dataframe_multipart(dataframe, bucket_name, key, part_size_mb=500):
 
     parts = []
     
-    for part_number in range(num_parts):
+    for part_number in range(1,num_parts+1):
         # Read part data
         print(f'Uploading part: {part_number}')
         part_data = csv_buffer.read(part_size)
@@ -166,7 +166,7 @@ def upload_dataframe_multipart(dataframe, bucket_name, key, part_size_mb=500):
         response = s3_client.upload_part(
             Bucket=bucket_name,
             Key=key,
-            PartNumber=part_number + 1,
+            PartNumber=part_number,
             UploadId=upload_id,
             Body=part_data.encode()
         )
